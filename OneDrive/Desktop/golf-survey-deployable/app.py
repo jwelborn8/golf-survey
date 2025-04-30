@@ -50,6 +50,4 @@ def submit_form():
     
     return f"<h2>Thank you, {name}! Your response has been recorded in the Google Sheet.</h2>"
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
-ecorded in the Google Sheet.</h2>"
+
