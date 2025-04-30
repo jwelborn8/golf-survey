@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Golf Survey</title>
+</head>
+<body>
+  <h1>Golf Course Survey</h1>
+  <form action="/submit" method="POST">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="course">Closest Golf Course:</label><br>
+    <input type="text" id="course" name="course" required><br><br>
+
+    <label for="amount">Amount Willing to Pay for 18 Holes ($):</label><br>
+    <input type="number" id="amount" name="amount" min="0" required><br><br>
+
+    <label for="guest">Will You Be Bringing a Guest?</label><br>
+    <select id="guest" name="guest" required>
+      <option value="">--Select--</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
