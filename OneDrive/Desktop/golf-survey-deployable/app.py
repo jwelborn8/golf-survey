@@ -34,26 +34,24 @@ def submit_form():
     print(f"Guest: {guest}")
 
     try:
-        # Send data to Google Sheet
+        # Step 5: Send data to Google Sheet
         service = build('sheets', 'v4', credentials=credentials)
         sheet = service.spreadsheets()
-        
-        # Step 5: Log the API request and check the response
+
+        # Append the data to the Google Sheet
         result = sheet.values().append(
             spreadsheetId=SPREADSHEET_ID,
             range=SHEET_RANGE,
             valueInputOption='RAW',
             body={'values': [[name, course, amount, guest]]}
         ).execute()
-        
-        # Log the result returned by the API
+
+        # Log the result returned by the Google Sheets API
         print(f"Google Sheets API Response: {result}")
-        
+
         return f"<h2>Thank you, {name}! Your response has been recorded in the Google Sheet.</h2>"
 
     except Exception as e:
         # Log any exceptions or errors
         print(f"Error occurred: {e}")
         return f"<h2>There was an issue recording your response. Please try again later.</h2>"
-
-
