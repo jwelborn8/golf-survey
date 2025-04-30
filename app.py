@@ -1,7 +1,7 @@
 import os
 import json
 import logging
-from flask import Flask, request, redirect
+from flask import Flask, request, render_template, redirect
 from google.auth.transport.requests import Request
 from google.oauth2 import service_account  # Import service_account properly
 from googleapiclient.discovery import build
@@ -33,7 +33,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return redirect('/form.html')
+    return render_template('form.html')  # Render the form.html file
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
@@ -75,5 +75,4 @@ def submit_form():
 # Run the Flask app
 if __name__ == '__main__':
     logger.info("Starting Flask app...")
-    app.run(host='0.0.0.0', port=10000)
-
+    app.run(host='0.0.0.0', port=10000)  # Run Flask app on port 10000 locally

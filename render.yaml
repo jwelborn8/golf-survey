@@ -2,6 +2,9 @@ services:
   - type: web
     name: golf-survey
     env: python
+    plan: free
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python app.py"
-    autoDeploy: true
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: GOOGLE_CREDENTIALS_JSON
+        fromDatabase: "C:\Users\joshu\OneDrive\Desktop\golf-survey-deployable\my-golf-credentials.json"
