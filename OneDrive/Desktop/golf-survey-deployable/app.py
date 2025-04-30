@@ -1,39 +1,4 @@
-from flask import Flask, request, send_from_directory
-import openpyxl
-import os
-
-app = Flask(__name__)
-EXCEL_FILE = 'responses.xlsx'
-
-# Create Excel workbook if not exists
-if not os.path.exists(EXCEL_FILE):
-    wb = openpyxl.Workbook()
-    ws = wb.active
-    ws.title = "Survey Responses"
-    ws.append(["Name", "Closest Golf Course", "Amount Willing to Pay", "Bringing Guest"])
-    wb.save(EXCEL_FILE)
-
-@app.route('/form.html')
-def serve_form():
-    return send_from_directory('.', 'form.html')
-
-@app.route('/submit', methods=['POST'])
-def submit_form():
-    name = request.form.get('name')
-    course = request.form.get('course')
-    amount = request.form.get('amount')
-    guest = request.form.get('guest')
-
-    wb = openpyxl.load_workbook(EXCEL_FILE)
-    ws = wb.active
-    ws.append([name, course, amount, guest])
-    wb.save(EXCEL_FILE)
-
-    return f"<h2>Thank you, {name}! Your response has been recorded.</h2>"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
-  from flask import Flask, request, redirect
+ffrom flask import Flask, request, redirect
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import os
@@ -47,7 +12,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 credentials = service_account.Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
 
 # Replace this with your actual Google Sheets ID
-SPREADSHEET_ID = '1Y_g4BLsmpKFuy0FO2toO1azlujLpumWwOR7KItLjP0I '  # Example: '1aBcD3FgHIjKlMnOPqrS12345xyz6789'
+SPREADSHEET_ID = '1Y_g4BLsmpKFuy0FO2toO1azlujLpumWwOR7KItLjP0I'  # Example: '1aBcD3FgHIjKlMnOPqrS12345xyz6789'
 SHEET_RANGE = 'Sheet1!A:D'  # Adjust based on your Google Sheet layout
 
 @app.route('/')
@@ -56,6 +21,7 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
+    # Get form data
     name = request.form['name']
     course = request.form['course']
     amount = request.form['amount']
@@ -71,5 +37,7 @@ def submit_form():
         body={'values': [[name, course, amount, guest]]}
     ).execute()
 
-    return "Thanks for submitting your response!"
+    return f"<h2>Thank you, {name}! Your response has been recorded in the Google Sheet.</h2>"
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
