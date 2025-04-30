@@ -12,7 +12,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 credentials = service_account.Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
 
 # Replace this with your actual Google Sheets ID
-SPREADSHEET_ID = '1Y_g4BLsmpKFuy0FO2toO1azlujLpumWwOR7KItLjP0I'  # Your Google Sheet ID
+SPREADSHEET_ID = '1Y_g4BLsmpKFuy0FO2toO1azlujLpumWwOR7KItLjP0I' # Your Google Sheet ID
 SHEET_RANGE = 'Sheet1!A:D'  # Adjust based on your Google Sheet layout
 
 @app.route('/')
